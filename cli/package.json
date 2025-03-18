@@ -14,13 +14,13 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/yourusername/nexuskit.git",
+    "url": "git+https://github.com/nebulanollie/nexuskit.git",
     "directory": "cli"
   },
   "author": "NexusKit Contributors",
   "license": "MIT",
   "bugs": {
-    "url": "https://github.com/yourusername/nexuskit/issues"
+    "url": "https://github.com/nebulanollie/nexuskit/issues"
   },
   "homepage": "https://nexuskit.dev",
   "dependencies": {
