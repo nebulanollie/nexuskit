@@ -37,11 +37,10 @@ function print(message, color = colors.reset) {
 function execute(command, cwd) {
   try {
     execSync(command, { stdio: 'inherit', cwd });
-    return true;
   } catch (error) {
     print(`Failed to execute command: ${command}`, colors.red);
     print(error.message, colors.red);
-    return false;
+    process.exit(1);
   }
 }
 
@@ -82,37 +81,25 @@ async function createNexusKitApp() {
 
   // Clone the repository
   print("1. Cloning NexusKit template...", colors.bright);
-  const cloneSuccess = execute(`git clone --depth 1 https://github.com/nebulanollie/nexuskit.git .`, projectPath);
-  
-  if (!cloneSuccess) {
-    print("Failed to clone the repository. Please check your internet connection and try again.", colors.red);
-    // Clean up the project directory
-    fs.rmSync(projectPath, { recursive: true, force: true });
-    process.exit(1);
-  }
+  execute(`git clone --depth 1 https://github.com/nebulanollie/nexuskit.git .`, projectPath);
 
   // Remove the .git directory to start fresh
   fs.rmSync(path.join(projectPath, '.git'), { recursive: true, force: true });
 
-  // Create a new .env.local file from the .env.example if it exists
+  // Create a new .env.local file from the .env.example
   print("2. Setting up environment variables...", colors.bright);
-  const envExamplePath = path.join(projectPath, '.env.example');
-  const envLocalPath = path.join(projectPath, '.env.local');
-  
-  if (fs.existsSync(envExamplePath)) {
-    fs.copyFileSync(envExamplePath, envLocalPath);
-    
-    // Generate a random AUTH_SECRET
-    const authSecret = require('crypto').randomBytes(32).toString('base64');
-    let envContent = fs.readFileSync(envLocalPath, 'utf8');
-    envContent = envContent.replace('AUTH_SECRET="replace_with_a_secure_random_value"', `AUTH_SECRET="${authSecret}"`);
-    fs.writeFileSync(envLocalPath, envContent);
-  } else {
-    print("Warning: .env.example file not found. Creating a basic .env.local file...", colors.yellow);
-    const authSecret = require('crypto').randomBytes(32).toString('base64');
-    const basicEnvContent = `DATABASE_URL="postgresql://johndoe:randompassword@localhost:5432/mydb?schema=public"\nAUTH_SECRET="${authSecret}"\n`;
-    fs.writeFileSync(envLocalPath, basicEnvContent);
-  }
+  fs.copyFileSync(
+    path.join(projectPath, '.env.example'),
+    path.join(projectPath, '.env.local')
+  );
+
+  // Generate a random AUTH_SECRET
+  const authSecret = require('crypto').randomBytes(32).toString('base64');
+  const envContent = fs.readFileSync(path.join(projectPath, '.env.local'), 'utf8');
+  fs.writeFileSync(
+    path.join(projectPath, '.env.local'),
+    envContent.replace('AUTH_SECRET="replace_with_a_secure_random_value"', `AUTH_SECRET="${authSecret}"`)
+  );
 
   // Initialize a new git repository
   print("3. Initializing git repository...", colors.bright);
@@ -122,13 +109,9 @@ async function createNexusKitApp() {
   print("4. Installing dependencies...", colors.bright);
   execute('npm install', projectPath);
 
-  // Initialize Prisma if the directory exists
+  // Initialize Prisma
   print("5. Setting up Prisma...", colors.bright);
-  if (fs.existsSync(path.join(projectPath, 'prisma'))) {
-    execute('npx prisma generate', projectPath);
-  } else {
-    print("Warning: Prisma directory not found. Skipping schema generation.", colors.yellow);
-  }
+  execute('npx prisma generate', projectPath);
 
   // Success message
   print("\n━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━", colors.green);

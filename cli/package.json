@@ -2,7 +2,7 @@
   "name": "create-nexuskit-app",
   "version": "1.0.0",
   "description": "Create NexusKit apps with one command",
-  "main": "index.js",
+  "main": "create-app.js",
   "bin": {
     "create-nexuskit-app": "./create-app.js"
   },
@@ -24,8 +24,10 @@
   },
   "homepage": "https://nexuskit.dev",
   "dependencies": {
-    "chalk": "^4.1.2"
+    "chalk": "^4.1.2",
+    "prompts": "^2.4.2"
   },
+  "type": "commonjs",
   "keywords": [
     "react",
     "nextjs",
