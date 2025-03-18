@@ -81,7 +81,7 @@ async function createNexusKitApp() {
 
   // Clone the repository
   print("1. Cloning NexusKit template...", colors.bright);
-  execute(`git clone --depth 1 https://github.com/yourusername/nexuskit.git .`, projectPath);
+  execute(`git clone --depth 1 https://github.com/nebulanollie/nexuskit.git .`, projectPath);
 
   // Remove the .git directory to start fresh
   fs.rmSync(path.join(projectPath, '.git'), { recursive: true, force: true });
