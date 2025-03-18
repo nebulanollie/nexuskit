@@ -1,0 +1,36 @@
+{
+  "name": "create-nexuskit-app",
+  "version": "1.0.0",
+  "description": "Create NexusKit apps with one command",
+  "main": "index.js",
+  "bin": {
+    "create-nexuskit-app": "./create-app.js"
+  },
+  "files": [
+    "create-app.js"
+  ],
+  "engines": {
+    "node": ">=18.17.0"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/yourusername/nexuskit.git",
+    "directory": "cli"
+  },
+  "author": "NexusKit Contributors",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/yourusername/nexuskit/issues"
+  },
+  "homepage": "https://nexuskit.dev",
+  "dependencies": {
+    "chalk": "^5.3.0"
+  },
+  "keywords": [
+    "react",
+    "nextjs",
+    "create-app",
+    "nexuskit",
+    "cli"
+  ]
+} 
