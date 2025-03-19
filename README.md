@@ -3,7 +3,7 @@
 A powerful, feature-rich Next.js starter library with authentication, UI components, and database integration.
 
 <div align="center">
-  <a href="https://github.com/yourusername/nexuskit">
+  <a href="https://github.com/nebulanollie/nexuskit">
     <img src="https://via.placeholder.com/1200x600/4F46E5/FFFFFF?text=NexusKit" alt="NexusKit" width="100%" />
   </a>
 </div>
@@ -33,12 +33,57 @@ A powerful, feature-rich Next.js starter library with authentication, UI compone
 
 ## Quick Start
 
+### Method 1: Using the CLI (Recommended)
+
+#### Option A: Use npx (After the package is published)
 ```bash
 # Create a new NexusKit project
 npx create-nexuskit-app my-project
 
 # Navigate to your project directory
 cd my-project
+
+# Start the development server
+npm run dev
+```
+
+#### Option B: Use directly from the repository (Until the package is published)
+```bash
+# Clone the repository
+git clone https://github.com/nebulanollie/nexuskit.git
+
+# Navigate to the repository
+cd nexuskit
+
+# Create a new project 
+node ./cli/create-app.js my-project
+
+# Navigate to your project
+cd my-project
+
+# Start the development server
+npm run dev
+```
+
+### Method 2: Manual Setup
+```bash
+# Clone the repository
+git clone https://github.com/nebulanollie/nexuskit.git my-project
+
+# Navigate to your project directory
+cd my-project
+
+# Remove the .git directory
+rm -rf .git
+
+# Initialize a new git repository
+git init
+
+# Install dependencies
+npm install
+
+# Generate Prisma client
+npx prisma generate
 
 # Start the development server
 npm run dev
